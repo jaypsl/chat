@@ -21,15 +21,31 @@ app.use(express.static(publicPath));
 io.on('connection', (socket)=> {
 	console.log('new user is connected');
 
-socket.on('disconnect',()=> {
-	console.log('client disconnected');
+ // socket.emit('newEmail', {
+ // 	from:'jay@example.com',
+ // 	text:'hey whats up',
+ // 	CreateAt: 123
+ // });
+
+//  socket.on('CreateEmail', function(newEmail){
+// 	console.log('createemail', newEmail);
+// });
+
+  socket.on('createMessage', function(message){
+	console.log('createMessage', message);
 });
 
+ socket.emit('newMessage', {
+ 	from:'tisha@example.com',
+ 	text:'hey whats going on',
+ 	CreateAt: 456
+ });
 
 
+ socket.on('disconnect', ()=> {
+ 	console.log('user was disconnected');
+ });
 });
-
-
 
 server.listen(port, ()=> {
 	console.log(`server is running at ${port}`);
