@@ -21,7 +21,7 @@ socket.on('newMessage', function(message){
 	console.log('new message', message);
 });
 
-socket.emit('createMessage', {
-	from:'laila@dice.com',
-	text:'where r u'
-});
+// socket.emit('createMessage', {
+// 	from:'laila@dice.com',
+// 	text:'where r u'
+// });

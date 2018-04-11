@@ -33,13 +33,18 @@ io.on('connection', (socket)=> {
 
   socket.on('createMessage', function(message){
 	console.log('createMessage', message);
+	io.emit('newMessage', {
+		from: message.from,
+		text: message.text,
+		createdAt : new Date().getTime()
+	});
 });
 
- socket.emit('newMessage', {
- 	from:'tisha@example.com',
- 	text:'hey whats going on',
- 	CreateAt: 456
- });
+ // socket.emit('newMessage', {
+ // 	from:'tisha@example.com',
+ // 	text:'hey whats going on',
+ // 	createdAt: 456
+ // });
 
 
  socket.on('disconnect', ()=> {
