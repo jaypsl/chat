@@ -31,13 +31,40 @@ io.on('connection', (socket)=> {
 // 	console.log('createemail', newEmail);
 // });
 
+
+
+	// socket.emit from admin text welcome to chat app
+
+	socket.emit('newMessage', {
+		from:'Admin',
+		text:'welcome to chat app',
+		createdAt : new Date().getTime()
+	});
+
+
+	//socket.broadcast.emit from admin text new user joined
+
+	socket.broadcast.emit('newMessage', {
+		from: 'Admin',
+		text: 'new user joined',
+		createdAt : new Date().getTime()
+	});
+
   socket.on('createMessage', function(message){
 	console.log('createMessage', message);
-	io.emit('newMessage', {
+	// io.emit('newMessage', {
+	// 	from: message.from,
+	// 	text: message.text,
+	// 	createdAt : new Date().getTime()
+	// });
+
+socket.broadcast.emit('newMessage', {
 		from: message.from,
 		text: message.text,
 		createdAt : new Date().getTime()
 	});
+
+
 });
 
  // socket.emit('newMessage', {
