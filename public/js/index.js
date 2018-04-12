@@ -8,14 +8,6 @@ socket.on('disconnect', function() {
 	console.log('disconnected from server');
 });
 
-// socket.on('newEmail', function(email){
-// 	console.log('new email', email);
-// });
-
-// socket.emit('CreateEmail', {
-// 	to:'kay@dice.com',
-// 	text:'u made it'
-// });
 
 socket.on('newMessage', function(message){
 	console.log('new message', message);
@@ -25,6 +17,68 @@ socket.on('newMessage', function(message){
 
 	jQuery('#messages').append(li);
 });
+
+
+socket.on('newLocationMessage', function(message){
+var li = jQuery('<li></li>');
+var a = jQuery('<a target="_blank">My current location</a>');
+li.text(`${message.from} →  `);
+a.attr('href', message.url);
+li.append(a);
+jQuery('#messages').append(li);
+
+});
+
+
+jQuery('#message-form').on('submit',function(e){
+	e.preventDefault();
+
+	// to make something happen
+var messageTextbox = jQuery('[name=message]');
+
+	socket.emit('createMessage',{
+		from: 'User',
+		text: messageTextbox.val()
+	},function(){
+		messageTextbox.val('')
+	})
+});
+
+
+var locationButton = jQuery('#send-location');
+
+// do something when someon eclicks the button
+
+locationButton.on('click', function(){
+	if(!navigator.geolocation){
+		return alert('Geolocation is not supported by your browser')
+	}
+//disable the button after user click it once
+locationButton.attr('disabled','disabled').text('Sending Location......');
+
+//to fetch user location 
+navigator.geolocation.getCurrentPosition(function(position){
+// console.log(position);
+//remove the disable button attribute
+locationButton.removeAttr('disabled').text('SEND LOCATION');
+socket.emit('createLocationMessage',{
+	latitude: position.coords.latitude,
+	longitude: position.coords.longitude
+});
+},function(){
+	alert('unable to fetch the location');
+});
+});
+
+// socket.on('newEmail', function(email){
+// 	console.log('new email', email);
+// });
+
+// socket.emit('CreateEmail', {
+// 	to:'kay@dice.com',
+// 	text:'u made it'
+// });
+
 
 // socket.emit('createMessage', {
 // 	from: 'vis',
@@ -37,57 +91,6 @@ socket.on('newMessage', function(message){
 // 	from:'laila@dice.com',
 // 	text:'where r u'
 // });
-
-
-socket.on('newLocationMessage', function(message){
-var li = jQuery('<li></li>');
-var a = jQuery('<a target="_blank">My current location</a>');
-li.text(`${message.from}.  `);
-a.attr('href',message.url);
-li.append(a);
-jQuery('#messages').append(li);
-
-});
-
-
-
-
-
-jQuery('#message-form').on('submit',function(e){
-	e.preventDefault();
-
-	// to make something happen
-
-	socket.emit('createMessage',{
-		from: 'User',
-		text: jQuery('[name=message]').val()
-	},function(){})
-});
-
-var locationButton = jQuery('#send-location');
-
-// do something when someon eclicks the button
-
-locationButton.on('click', function(){
-	if(!navigator.geolocation){
-		return alert('Geolocation is not supported by your browser')
-	}
-
-//to fetch user location 
-navigator.geolocation.getCurrentPosition(function(position){
-// console.log(position);
-socket.emit('createLocationMessage',{
-	latitude: position.coords.latitude,
-	longitude: position.coords.longitude
-});
-},function(){
-	alert('unable to fetch the location');
-});
-});
-
-
-
-
 
 
 

@@ -21,15 +21,7 @@ app.use(express.static(publicPath));
 io.on('connection', (socket)=> {
 	console.log('new user is connected');
 
- // socket.emit('newEmail', {
- // 	from:'jay@example.com',
- // 	text:'hey whats up',
- // 	CreateAt: 123
- // });
-
-//  socket.on('CreateEmail', function(newEmail){
-// 	console.log('createemail', newEmail);
-// });
+ 
 
 // socket.emit from admin text welcome to chat app
 
@@ -42,16 +34,12 @@ socket.broadcast.emit('newMessage', generateMessage('Admin','new user joined'));
 socket.on('createMessage', function(message,callback){
 	console.log('createMessage', message);
 	io.emit('newMessage', generateMessage(message.from,message.text));
-	callback('this is from the server');
+	callback();
 // socket.broadcast.emit('newMessage', generateMessage(message.from,message.text));
 
 });
 
- // socket.emit('newMessage', {
- // 	from:'tisha@example.com',
- // 	text:'hey whats going on',
- // 	createdAt: 456
- // });
+ 
 
 
 
@@ -62,9 +50,30 @@ socket.on('createMessage', function(message,callback){
 
  socket.on('disconnect', ()=> {
  	console.log('user was disconnected');
- })
+ });
 });
 
 server.listen(port, ()=> {
 	console.log(`server is running at ${port}`);
 });
+
+
+// socket.emit('newEmail', {
+ // 	from:'jay@example.com',
+ // 	text:'hey whats up',
+ // 	CreateAt: 123
+ // });
+
+//  socket.on('CreateEmail', function(newEmail){
+// 	console.log('createemail', newEmail);
+// });
+
+// socket.emit('newMessage', {
+ // 	from:'tisha@example.com',
+ // 	text:'hey whats going on',
+ // 	createdAt: 456
+ // });
+
+
+
+
