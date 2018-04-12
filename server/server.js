@@ -31,26 +31,19 @@ io.on('connection', (socket)=> {
 // 	console.log('createemail', newEmail);
 // });
 
+// socket.emit from admin text welcome to chat app
 
+socket.emit('newMessage', generateMessage('Admin', 'welcome to chat app'));
 
-	// socket.emit from admin text welcome to chat app
+//socket.broadcast.emit from admin text new user joined
 
-	socket.emit('newMessage', generateMessage('Admin', 'welcome to chat app'));
+socket.broadcast.emit('newMessage', generateMessage('Admin','new user joined'));
 
-
-	//socket.broadcast.emit from admin text new user joined
-
-	socket.broadcast.emit('newMessage', generateMessage('Admin','new user joined'));
-
-  socket.on('createMessage', function(message){
+socket.on('createMessage', function(message,callback){
 	console.log('createMessage', message);
-	// io.emit('newMessage', {
-	// 	from: message.from,
-	// 	text: message.text,
-	// 	createdAt : new Date().getTime()
-	// });
-
-socket.broadcast.emit('newMessage', generateMessage(message.from,message.text));
+	io.emit('newMessage', generateMessage(message.from,message.text));
+	callback('this is from the server');
+// socket.broadcast.emit('newMessage', generateMessage(message.from,message.text));
 
 
 });
