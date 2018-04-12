@@ -2,7 +2,7 @@ const path = require('path');
 const http = require('http');
 const express = require('express');
 
-const {generateMessage} = require('./utils/message');
+const {generateMessage, generateLocationMessage} = require('./utils/message');
 const socketIO = require('socket.io');
 
 const port = process.env.PORT || 3000;
@@ -45,7 +45,6 @@ socket.on('createMessage', function(message,callback){
 	callback('this is from the server');
 // socket.broadcast.emit('newMessage', generateMessage(message.from,message.text));
 
-
 });
 
  // socket.emit('newMessage', {
@@ -55,9 +54,15 @@ socket.on('createMessage', function(message,callback){
  // });
 
 
+
+ socket.on('createLocationMessage', (coords)=> {
+	io.emit('newLocationMessage', generateLocationMessage('Admin', coords.latitude, coords.longitude));
+});
+
+
  socket.on('disconnect', ()=> {
  	console.log('user was disconnected');
- });
+ })
 });
 
 server.listen(port, ()=> {
