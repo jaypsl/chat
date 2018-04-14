@@ -22,7 +22,18 @@ if(clientHeight + scrollTop + newMessageHeight + lastMessageHeight >= scrollHeig
 
 
 socket.on('connect', function() {
-	console.log('connnected to server');
+	// console.log('connnected to server');
+	var params = jQuery.deparam(window.location.search);
+
+
+	socket.emit('join', params, function(err){
+		if(err){
+		alert(err);
+		window.location.href = '/';
+		}else{
+			console.log('No error');
+		}
+	});
 });
 
 socket.on('disconnect', function() {
@@ -135,19 +146,4 @@ socket.emit('createLocationMessage',{
 // 	from:'laila@dice.com',
 // 	text:'where r u'
 // });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
