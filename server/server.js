@@ -26,16 +26,26 @@ io.on('connection', (socket)=> {
 
 // socket.emit from admin text welcome to chat app
 
-socket.emit('newMessage', generateMessage('Admin', 'welcome to chat app'));
 
 //socket.broadcast.emit from admin text new user joined
 
-socket.broadcast.emit('newMessage', generateMessage('Admin','new user joined'));
 
 socket.on('join', (params,callback)=> {
 if(!isRealString(params.name) || !isRealString(params.room)){
 	callback('NAME and ROOM are required');
 }
+socket.join(params.room);
+//socket.leave('the office fans');
+
+//io.emit -> io.to('the office fans').emit io.to is the method that we gonna use to provide room for users of that room. io.to takes the argument as the name of the room. 
+//socket.broadcast.emit -> socket.broadcast.to('the office fans').emit
+//socket.emit -> socket.emit
+
+
+
+socket.emit('newMessage', generateMessage('Admin', 'welcome to chat app'));
+socket.broadcast.to(params.room).emit('newMessage', generateMessage('Admin',`${params.name} has joined`));
+
 callback();
 });
 
