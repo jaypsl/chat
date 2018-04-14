@@ -2,79 +2,31 @@
 <html>
 <head>
 	<meta charset="utf-8">
+	<title>Join | ChatApp</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 	<link rel="stylesheet" href="/css/style.css">
 </head>
-
-<body class="chat">
-
-
-	<!-- <p> Welcome to my chat app </p>
- -->
-
- <div class="chat__sidebar">
- 	<h3> CHAT</h3>
- 	<div id="users"></div>
-
- </div>
-
-
- <div class="chat__main">
- 	<ol id="messages" class="chat__messages"></ol>
-
- <div class="chat__footer">
- 		
- 		<form id="message-form">
-<input name="message" type="textbox" placeholder="Message" autofocus autocomplete="off" />
-
-<button>SEND</button>
-</form>
-
-<button id="send-location">SEND LOCATION</button>
-
-</div>
-	
-<script id="message__template" type="text/template">
-	<li class="message">
-		<div class="message__title">
-		<h4>{{from}}</h4>
-		<span>{{createdAt}}</span>
+<body class="centered-form">
+	<div class="centered-form__form">
+		<form action="/chat.html">
+		<div class="form-field">
+			<h3>JOIN A CHAT</h3>
 		</div>
-		<div class="message__body">
-			<p>{{text}}</p>
-
-
-	</li>
-	<!-- <p> {{text}}</p> -->
-</script>
-
-<script id="location-message__template" type="text/template">
-	<li class="message">
-		<div class="message__title">
-		<h4>{{from}}</h4>
-		<span>{{createdAt}}</span>
+		<div class="form-field">
+			<label>DISPLAY NAME</label>
+			<input type="text" name="name" autofocus/>
 		</div>
-		<div class="message__body">
-			<p>
-			<a href="{{url}}" target="_blank">MY CURRENT LOCATION</a>
-
-
-			</p>
-
-
-	</li>
-	<!-- <p> {{text}}</p> -->
-</script>
-
-
-<script src="/socket.io/socket.io.js"></script>
-<script src="/js/libs/jquery-3.3.1.min.js"></script>
-<script src="/js/libs/moment.js"></script>
-<script src="/js/libs/mustache.js"></script>
-	<script src="/js/index.js"></script>
+		<div class="form-field">
+			<label>ROOM NAME</label>
+			<input type="text" name="room">
+		</div>
+		<div class="form-field">
+			<button>JOIN</button>
+		</div>
+	</form>
+	</div>
 </body>
-
-
- </div>
-	
-
 </html>
+
+<!-- viewport tag lets u specify how your size should be render  -->
+<!-- form action which page to go after user done with filling form it will directed to chat.html page -->
