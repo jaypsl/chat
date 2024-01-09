@@ -15,12 +15,14 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.3",
+    "heroku": "^8.7.1",
     "moment": "^2.22.0",
     "socket.io": "^2.1.0"
   },
   "devDependencies": {
-    "expect": "^22.4.3",
+    "expect": "^29.7.0",
+    "gh-pages": "^6.1.1",
     "mocha": "^5.0.5",
-    "nodemon": "^1.17.3"
+    "nodemon": "^3.0.2"
   }
 }
